@@ -30,21 +30,8 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>(
         differ.submitList(list)
     }
 
-    inner class TaskRowViewHolder(private val root: View) :
-        RecyclerView.ViewHolder(root) {
-
-        private var customView: TaskRowComponent? = null
-
-        init {
-            customView = root as TaskRowComponent?
-        }
-
-        fun getCustomView(): TaskRowComponent? {
-            return customView
-        }
-
-
-    }
+    class TaskRowViewHolder(root: View) :
+        RecyclerView.ViewHolder(root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskRowViewHolder {
         val itemView = TaskRowComponent(parent.context)
@@ -52,7 +39,7 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        return TaskRowViewHolder(itemView.rootView)
+        return TaskRowViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
@@ -61,6 +48,6 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>(
 
     override fun onBindViewHolder(holder: TaskRowViewHolder, position: Int) {
         val item = differ.currentList[position]
-        holder.getCustomView()?.setComponent(item)
+        (holder.itemView as TaskRowComponent).setComponent(item)
     }
 }

@@ -6,4 +6,15 @@
     <string name="calendar">Calendar</string>
     <string name="tasks">Tasks</string>
     <string name="create">Create</string>
+    <string name="sun">Sun</string>
+    <string name="sat">Sat</string>
+    <string name="wed">Wed</string>
+    <string name="tue">Tue</string>
+    <string name="mon">Mon</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="prev">Prev</string>
+    <string name="month_year">Month Year</string>
+    <string name="next">Next</string>
+    <string name="add_task">Add Task</string>
 </resources>
