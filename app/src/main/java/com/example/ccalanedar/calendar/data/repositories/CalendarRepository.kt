@@ -1,5 +1,6 @@
 package com.example.ccalanedar.calendar.data.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.ccalanedar.calendar.core.utils.Resource
 import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.calendar.data.request.TaskRequest
@@ -16,9 +17,11 @@ interface CalendarRepository {
 
     suspend fun storeTaskToServer(taskRequest: TaskRequest): Resource<TaskStoredResponse>
 
-    suspend fun getAllTasksFromClient(): Flow<TaskModelDTO>
+    fun getAllTasksFromClient(): LiveData<List<TaskModelDTO>>
 
     suspend fun deleteTaskFromClient(taskId: Int)
 
     suspend fun storeTaskOnClient(taskModelDTO: TaskModelDTO)
+
+    suspend fun refreshDB(result: Resource<TaskListResponse>)
 }

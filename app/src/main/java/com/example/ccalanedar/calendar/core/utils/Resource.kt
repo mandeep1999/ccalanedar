@@ -1,8 +1,8 @@
 package com.example.ccalanedar.calendar.core.utils
 
 sealed class Resource<T>(
-    private val data: T? = null,
-    private val message: String? = null
+    val data: T? = null,
+    val message: String? = null
 ) {
 
     class Success<T>(data: T?) : Resource<T>(data = data)

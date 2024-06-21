@@ -10,8 +10,10 @@ data class StoreTaskRequestModel(
 )
 
 data class TaskRequest(
+    @SerializedName("date")
+    var date: Long,
     @SerializedName("title")
-    val title: String? = null,
+    var title: String? = null,
     @SerializedName("description")
-    val description: String? = null
+    var description: String? = null
 )

@@ -1,5 +1,6 @@
 package com.example.ccalanedar.calendar.data.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.ccalanedar.calendar.core.database.AppDataBase
 import com.example.ccalanedar.calendar.core.utils.BaseRepo
 import com.example.ccalanedar.calendar.core.utils.Resource
@@ -12,9 +13,11 @@ import com.example.ccalanedar.calendar.data.request.TaskRequest
 import com.example.ccalanedar.calendar.data.response.TaskDeletionResponse
 import com.example.ccalanedar.calendar.data.response.TaskListResponse
 import com.example.ccalanedar.calendar.data.response.TaskStoredResponse
-import kotlinx.coroutines.flow.Flow
+import com.example.ccalanedar.calendar.data.utility.DTOConverter.convertTaskItemToTaskDTO
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CalendarRepositoryImpl @Inject constructor(
     private val calendarApi: CalendarApi,
     private val appDataBase: AppDataBase
@@ -27,6 +30,7 @@ class CalendarRepositoryImpl @Inject constructor(
         return safeApiCall { calendarApi.getCalendarTaskList(requestModel) }
     }
 
+
     override suspend fun deleteTaskFromServer(taskId: Int): Resource<TaskDeletionResponse> {
         val requestModel = DeleteTaskRequestModel(userId = userID, taskId = taskId)
         return safeApiCall { calendarApi.deleteCalendarTask(requestModel) }
@@ -37,7 +41,7 @@ class CalendarRepositoryImpl @Inject constructor(
         return safeApiCall { calendarApi.storeCalendarTask(requestModel) }
     }
 
-    override suspend fun getAllTasksFromClient(): Flow<TaskModelDTO> {
+    override fun getAllTasksFromClient(): LiveData<List<TaskModelDTO>> {
         return appDataBase.calendarDAO.getAllTasksFromDB()
     }
 
@@ -47,5 +51,16 @@ class CalendarRepositoryImpl @Inject constructor(
 
     override suspend fun storeTaskOnClient(taskModelDTO: TaskModelDTO) {
         return appDataBase.calendarDAO.insertTaskIntoDB(taskModelDTO = taskModelDTO)
+    }
+
+    override suspend fun refreshDB(result: Resource<TaskListResponse>) {
+        if (result is Resource.Success) {
+            appDataBase.calendarDAO.deleteAllTasks()
+            result.data?.tasks?.map {
+                convertTaskItemToTaskDTO(it)?.let { dto ->
+                    appDataBase.calendarDAO.insertTaskIntoDB(dto)
+                }
+            }
+        }
     }
 }
