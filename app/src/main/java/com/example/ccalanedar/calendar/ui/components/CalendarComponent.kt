@@ -35,12 +35,12 @@ class CalendarComponent : BaseConstraintLayout {
 
     init {
         binding.nextMonthButton.setOnClickListener {
-            currentCalendar.add(Calendar.MONTH, -1)
+            currentCalendar.add(Calendar.MONTH, 1)
             updateCalendar()
         }
 
         binding.prevMonthButton.setOnClickListener {
-            currentCalendar.add(Calendar.MONTH, 1)
+            currentCalendar.add(Calendar.MONTH, -1)
             updateCalendar()
         }
 
