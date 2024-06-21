@@ -19,6 +19,9 @@ class CalendarViewModel @Inject constructor(private val calendarUseCases: Calend
     private val _showDataLoader: MutableLiveData<Boolean> = MutableLiveData(false)
     val showDataLoader get(): LiveData<Boolean> = _showDataLoader
 
+    var newTaskTitle: String? = null
+    var newTaskDescription: String? = null
+    var newTaskDate: Long? = null
 
     init {
         fetchAllTasksFromServer()
@@ -35,5 +38,35 @@ class CalendarViewModel @Inject constructor(private val calendarUseCases: Calend
     }
 
     fun getAllTasks() = calendarUseCases.readAllTaskUseCase()
+
+    fun clearNewTask() {
+        newTaskTitle = null
+        newTaskDescription = null
+        newTaskDate = null
+    }
+
+    fun createNewTask() {
+        _showDataLoader.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            calendarUseCases.insertNewTaskUseCase(
+                date = newTaskDate,
+                title = newTaskTitle,
+                description = newTaskDescription
+            )
+            withContext(Dispatchers.Main) {
+                _showDataLoader.value = false
+            }
+        }
+    }
+
+    fun deleteTask(id: Int) {
+        _showDataLoader.value = true
+        viewModelScope.launch {
+            calendarUseCases.deleteTaskUseCase(id)
+            withContext(Dispatchers.Main) {
+                _showDataLoader.value = false
+            }
+        }
+    }
 
 }

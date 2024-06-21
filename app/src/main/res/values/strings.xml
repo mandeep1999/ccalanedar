@@ -17,4 +17,13 @@
     <string name="month_year">Month Year</string>
     <string name="next">Next</string>
     <string name="add_task">Add Task</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="date">Date</string>
+    <string name="please_write_something">Please write something</string>
+    <string name="delete">delete</string>
+    <string name="are_you_sure_you_want_to_delete_this">Are you sure, you want to delete this?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

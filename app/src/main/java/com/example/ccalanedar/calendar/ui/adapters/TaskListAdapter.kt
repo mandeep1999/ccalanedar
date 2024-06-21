@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.calendar.ui.components.TaskRowComponent
 
-class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>() {
+class TaskListAdapter(private val deleteCallback: (Int) -> Unit) :
+    RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>() {
 
 
     companion object {
@@ -48,6 +49,6 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskRowViewHolder>(
 
     override fun onBindViewHolder(holder: TaskRowViewHolder, position: Int) {
         val item = differ.currentList[position]
-        (holder.itemView as TaskRowComponent).setComponent(item)
+        (holder.itemView as TaskRowComponent).setComponent(item, deleteCallback = deleteCallback)
     }
 }

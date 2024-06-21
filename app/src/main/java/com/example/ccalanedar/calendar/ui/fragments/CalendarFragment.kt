@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.ccalanedar.R
 import com.example.ccalanedar.calendar.ui.adapters.CalendarPagerAdapter
+import com.example.ccalanedar.calendar.ui.bottomsheets.AddTaskBottomSheet
 import com.example.ccalanedar.databinding.FragmentCalendarBinding
 
 class CalendarFragment : Fragment() {
@@ -41,11 +41,15 @@ class CalendarFragment : Fragment() {
     }
 
     private fun initViewPager() {
-        val adapter = CalendarPagerAdapter(requireActivity()) {
-            Toast.makeText(context, "Hello world $it", Toast.LENGTH_LONG).show()
-        }
+        val adapter = CalendarPagerAdapter(requireActivity(), ::onDateSelection)
         binding.viewPager.adapter = adapter
         binding.viewPager.setCurrentItem(Int.MAX_VALUE / 2, false)
+    }
+
+    private fun onDateSelection(date: Long) {
+        val addBottomSheet = AddTaskBottomSheet.getInstance(date)
+        childFragmentManager.beginTransaction().add(addBottomSheet, AddTaskBottomSheet.TAG)
+            .commitAllowingStateLoss()
     }
 
     companion object {

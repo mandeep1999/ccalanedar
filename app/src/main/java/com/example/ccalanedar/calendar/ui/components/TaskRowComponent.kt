@@ -27,11 +27,12 @@ class TaskRowComponent : BaseConstraintLayout {
     private val binding =
         DataBindingUtil.inflate<TaskRowItemBinding>(inflater, R.layout.task_row_item, this, true)
 
-    fun setComponent(taskModelDTO: TaskModelDTO) {
+    fun setComponent(taskModelDTO: TaskModelDTO, deleteCallback: (Int) -> Unit) {
         with(taskModelDTO) {
             setTitleText(title)
             setDescriptionText(description)
             setDate(date)
+            setClickListener(deleteCallback, taskId)
         }
     }
 
@@ -49,6 +50,12 @@ class TaskRowComponent : BaseConstraintLayout {
         binding.dateTextView.isVisible = date != null
         date?.let {
             binding.dateTextView.text = Utility.convertTimestampToReadableDate(it)
+        }
+    }
+
+    private fun setClickListener(deleteCallback: (Int) -> Unit, taskId: Int) {
+        binding.deleteIcon.setOnClickListener {
+            deleteCallback.invoke(taskId)
         }
     }
 }

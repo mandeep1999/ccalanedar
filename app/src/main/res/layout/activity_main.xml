@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         tools:context=".calendar.ui.activities.MainActivity">
 
+
         <Toolbar
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
@@ -42,6 +43,15 @@
             app:itemTextAppearanceActiveBoldEnabled="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loader"
+            android:background="#66E4E5F1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_repeatMode="restart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

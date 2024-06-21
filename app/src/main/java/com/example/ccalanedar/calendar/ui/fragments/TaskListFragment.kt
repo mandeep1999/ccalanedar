@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ccalanedar.R
 import com.example.ccalanedar.calendar.ui.adapters.TaskListAdapter
 import com.example.ccalanedar.calendar.ui.viewmodels.CalendarViewModel
@@ -51,11 +51,21 @@ class TaskListFragment : Fragment() {
 
 
     private fun setObservers() {
-        listAdapter = TaskListAdapter()
+        listAdapter = TaskListAdapter(::onDelete)
         binding.listRecyclerView.adapter = listAdapter
         viewModel.getAllTasks().observe(viewLifecycleOwner) {
             listAdapter?.setItems(it)
         }
+    }
+
+    private fun onDelete(id: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.are_you_sure_you_want_to_delete_this))
+            .setPositiveButton(
+                getString(R.string.yes)
+            ) { _, _ -> viewModel.deleteTask(id) }.setNegativeButton(R.string.no) { _, _ ->
+
+            }.create().show()
     }
 
     companion object {
