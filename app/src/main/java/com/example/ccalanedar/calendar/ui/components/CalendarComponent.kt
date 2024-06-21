@@ -6,9 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.GridLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.ccalanedar.R
 import com.example.ccalanedar.calendar.core.custom_views.BaseConstraintLayout
+import com.example.ccalanedar.calendar.core.utils.Utility
+import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.databinding.CalendarLayoutBinding
 import java.util.Calendar
 
@@ -32,6 +35,7 @@ class CalendarComponent : BaseConstraintLayout {
 
     private var currentCalendar: Calendar = Calendar.getInstance()
     private var dateSelectionListener: ((Long) -> Unit)? = null
+    private var tasks: List<TaskModelDTO>? = null
 
     init {
         binding.nextMonthButton.setOnClickListener {
@@ -47,8 +51,13 @@ class CalendarComponent : BaseConstraintLayout {
         updateCalendar()
     }
 
-    fun setCalendar(calendar: Calendar, dateSelectionListener: (Long) -> Unit) {
+    fun setCalendar(
+        calendar: Calendar,
+        tasks: List<TaskModelDTO>?,
+        dateSelectionListener: (Long) -> Unit
+    ) {
         this.currentCalendar = calendar.clone() as Calendar
+        this.tasks = tasks
         this.dateSelectionListener = dateSelectionListener
         updateCalendar()
     }
@@ -98,12 +107,49 @@ class CalendarComponent : BaseConstraintLayout {
 
     private fun addDayView(day: Int) {
         val dayView = getDateTextView(day.toString())
+        highLightTask(
+            dayView,
+            (currentCalendar.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, day) })
+        highLightToday(dayView, day)
         dayView.setOnClickListener {
             val selectedDate = currentCalendar.clone() as Calendar
             selectedDate.set(Calendar.DAY_OF_MONTH, day)
             dateSelectionListener?.invoke(selectedDate.timeInMillis)
         }
         binding.calendarGrid.addView(dayView)
+    }
+
+    private fun highLightTask(textView: TextView, calendar: Calendar) {
+        var numberOfTasks = 0
+        tasks?.map {
+            it.date?.let { timestamp ->
+                if (Utility.checkSameDay(timestamp, calendar.timeInMillis + 10000)) {
+                    numberOfTasks++
+                }
+            }
+        }
+        if (numberOfTasks > 0) {
+            val text: String = textView.text.toString() + "($numberOfTasks)"
+            textView.text = text
+            highLightTextView(textView, R.color.colorSecondary)
+        }
+    }
+
+    private fun highLightToday(textView: TextView, day: Int) {
+        val todayCalendar = Calendar.getInstance()
+        if (currentCalendar.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR) &&
+            currentCalendar.get(Calendar.MONTH) == todayCalendar.get(Calendar.MONTH) &&
+            day == todayCalendar.get(Calendar.DAY_OF_MONTH)
+        ) {
+            highLightTextView(
+                textView = textView,
+                R.color.lightGrey
+            )
+        }
+    }
+
+    private fun highLightTextView(textView: TextView, color: Int) {
+        textView.setBackgroundColor(ContextCompat.getColor(context, color))
     }
 
     private fun getDateTextView(text: String, textColor: Int? = null): TextView {

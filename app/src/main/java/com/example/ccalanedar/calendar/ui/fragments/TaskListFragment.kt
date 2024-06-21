@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ccalanedar.R
+import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.calendar.ui.adapters.TaskListAdapter
 import com.example.ccalanedar.calendar.ui.viewmodels.CalendarViewModel
 import com.example.ccalanedar.databinding.FragmentTaskListBinding
@@ -54,8 +55,23 @@ class TaskListFragment : Fragment() {
         listAdapter = TaskListAdapter(::onDelete)
         binding.listRecyclerView.adapter = listAdapter
         viewModel.getAllTasks().observe(viewLifecycleOwner) {
-            listAdapter?.setItems(it)
+            if (it.isNullOrEmpty()) {
+                showEmptyScreen()
+            } else {
+                showDataScreen(it)
+            }
         }
+    }
+
+    private fun showEmptyScreen() {
+        binding.emptyTextView.visibility = View.VISIBLE
+        binding.listRecyclerView.visibility = View.GONE
+    }
+
+    private fun showDataScreen(taskModelDTOS: List<TaskModelDTO>) {
+        binding.emptyTextView.visibility = View.GONE
+        binding.listRecyclerView.visibility = View.VISIBLE
+        listAdapter?.setItems(taskModelDTOS)
     }
 
     private fun onDelete(id: Int) {

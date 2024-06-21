@@ -4,11 +4,13 @@ package com.example.ccalanedar.calendar.ui.adapters
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.calendar.ui.components.CalendarComponent
 import java.util.Calendar
 
 class CalendarPagerAdapter(
     private val context: Context,
+    private val tasks: List<TaskModelDTO>?,
     private val dateSelectionCallBack: ((Long) -> Unit)
 ) :
     RecyclerView.Adapter<CalendarPagerAdapter.CalendarViewHolder>() {
@@ -23,7 +25,7 @@ class CalendarPagerAdapter(
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = currentCalendar.clone() as Calendar
         calendar.add(Calendar.MONTH, position - Int.MAX_VALUE / 2)
-        holder.calendarView.setCalendar(calendar, dateSelectionCallBack)
+        holder.calendarView.setCalendar(calendar, tasks, dateSelectionCallBack)
     }
 
     override fun getItemCount(): Int {
