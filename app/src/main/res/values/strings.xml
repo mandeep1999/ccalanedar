@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task_icon">Task Icon</string>
+    <string name="yo_cal">Yo CAL</string>
     <string name="calendar">Calendar</string>
     <string name="tasks">Tasks</string>
     <string name="create">Create</string>
