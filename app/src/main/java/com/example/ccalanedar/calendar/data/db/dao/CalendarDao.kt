@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 
 @Dao
@@ -21,5 +22,15 @@ interface CalendarDAO {
 
     @Query("delete from tasks_list")
     suspend fun deleteAllTasks()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertBulkTask(list: List<TaskModelDTO>)
+
+    @Transaction
+    suspend fun refreshTasksInTransaction(newTasks: List<TaskModelDTO>) {
+        deleteAllTasks()
+        insertBulkTask(newTasks)
+    }
+
 
 }

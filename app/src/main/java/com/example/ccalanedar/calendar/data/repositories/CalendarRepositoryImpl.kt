@@ -55,11 +55,8 @@ class CalendarRepositoryImpl @Inject constructor(
 
     override suspend fun refreshDB(result: Resource<TaskListResponse>) {
         if (result is Resource.Success) {
-            appDataBase.calendarDAO.deleteAllTasks()
-            result.data?.tasks?.map {
-                convertTaskItemToTaskDTO(it)?.let { dto ->
-                    appDataBase.calendarDAO.insertTaskIntoDB(dto)
-                }
+            result.data?.tasks?.mapNotNull { convertTaskItemToTaskDTO(it) }?.let {
+                appDataBase.calendarDAO.refreshTasksInTransaction(it)
             }
         }
     }
