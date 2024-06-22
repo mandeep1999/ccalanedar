@@ -11,7 +11,7 @@ class DeleteTaskUseCase @Inject constructor(private val calendarRepository: Cale
 
     suspend operator fun invoke(taskId: Int?) {
         withContext(Dispatchers.IO) {
-            if (Utility.isValidTaskId(taskId)) {
+            if (Utility.isValidTaskId(taskId).not()) {
                 return@withContext
             }
             val result = calendarRepository.deleteTaskFromServer(taskId!!)
