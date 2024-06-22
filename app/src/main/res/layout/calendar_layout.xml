@@ -5,6 +5,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_margin="12dp"
+        android:background="@drawable/curve_cream"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -13,12 +15,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
+            android:gravity="center_vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/prev_month_button"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prev" />
@@ -29,13 +33,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:text="@string/month_year"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <Button
                 android:id="@+id/next_month_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="@string/next" />
         </LinearLayout>
 
@@ -56,12 +63,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
-                android:text="Sun" />
+                android:text="@string/sun" />
 
             <TextView
                 android:layout_width="0dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="@string/mon" />
@@ -69,6 +80,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="@string/tue" />
@@ -76,6 +89,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="@string/wed" />
@@ -84,12 +99,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/thu" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="@string/fri" />
@@ -97,6 +116,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:text="@string/sat" />

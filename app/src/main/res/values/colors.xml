@@ -3,13 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#484b6a</color>
-    <color name="colorSecondary">#9394a5</color>
+    <color name="colorPrimary">#262A56</color>
+    <color name="colorSecondary">#686D76</color>
+    <color name="accentColor">#DC5F00</color>
+    <color name="lightGrey">#FAF9F9</color>
+    <color name="lightCream">#F4F6FF</color>
 
-    <color name="lightGrey">#d2d3db</color>
-
-    <color name="lightBlueBG">#e4e5f1</color>
-
-    <color name="creamWhite">#fafafa</color>
 
 </resources>

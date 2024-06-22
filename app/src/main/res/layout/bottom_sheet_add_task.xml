@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlueBG"
+        android:background="@drawable/curve_top_bg"
         android:padding="16dp">
 
         <View

@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:title="@string/calendar"
-            android:background="@color/lightBlueBG"
-            android:titleTextColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:titleTextColor="@color/lightGrey"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,8 +38,9 @@
             app:menu="@menu/main_bottom_menu"
             app:itemIconTint="@color/bottom_nav_selector"
             app:itemTextColor="@color/bottom_nav_selector"
+            app:itemActiveIndicatorStyle="@null"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/lightBlueBG"
+            android:background="@color/colorPrimary"
             app:itemTextAppearanceActiveBoldEnabled="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -50,6 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:lottie_autoPlay="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             app:lottie_rawRes="@raw/loading"
             app:lottie_repeatMode="restart" />
 

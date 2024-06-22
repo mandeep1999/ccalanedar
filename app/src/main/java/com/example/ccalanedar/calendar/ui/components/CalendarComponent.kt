@@ -101,12 +101,12 @@ class CalendarComponent : BaseConstraintLayout {
     }
 
     private fun addBlurredDayView(day: Int) {
-        val dayView = getDateTextView(day.toString(), Color.parseColor("#BDBDBD"))
+        val dayView = getDateTextView(day.toString(), ContextCompat.getColor(context, R.color.colorSecondary))
         binding.calendarGrid.addView(dayView)
     }
 
     private fun addDayView(day: Int) {
-        val dayView = getDateTextView(day.toString())
+        val dayView = getDateTextView(day.toString(), ContextCompat.getColor(context, R.color.colorPrimary))
         highLightTask(
             dayView,
             (currentCalendar.clone() as Calendar).apply { set(Calendar.DAY_OF_MONTH, day) })
@@ -131,7 +131,8 @@ class CalendarComponent : BaseConstraintLayout {
         if (numberOfTasks > 0) {
             val text: String = textView.text.toString() + "($numberOfTasks)"
             textView.text = text
-            highLightTextView(textView, R.color.colorSecondary)
+            textView.setTextColor(ContextCompat.getColor(context, R.color.lightGrey))
+            highLightTextView(textView, R.color.colorPrimary)
         }
     }
 
@@ -141,9 +142,10 @@ class CalendarComponent : BaseConstraintLayout {
             currentCalendar.get(Calendar.MONTH) == todayCalendar.get(Calendar.MONTH) &&
             day == todayCalendar.get(Calendar.DAY_OF_MONTH)
         ) {
+            textView.setTextColor(ContextCompat.getColor(context, R.color.lightGrey))
             highLightTextView(
                 textView = textView,
-                R.color.lightGrey
+                R.color.accentColor
             )
         }
     }
