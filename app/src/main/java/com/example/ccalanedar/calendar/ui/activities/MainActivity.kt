@@ -64,4 +64,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _viewModel = null
+        _binding = null
+    }
+
 }

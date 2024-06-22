@@ -27,6 +27,10 @@ class CalendarViewModel @Inject constructor(private val calendarUseCases: Calend
         fetchAllTasksFromServer()
     }
 
+    /**
+     * Function to be called to fetch all the tasks from the server.
+     * It is called once, when the view model is initialised.
+     */
     private fun fetchAllTasksFromServer() {
         _showDataLoader.value = true
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,14 +41,25 @@ class CalendarViewModel @Inject constructor(private val calendarUseCases: Calend
         }
     }
 
+    /**
+     * Function to get all tasks from local room db. It returns a live date
+     * with all the tasks.
+     */
     fun getAllTasks() = calendarUseCases.readAllTaskUseCase()
 
+    /**
+     * Function to clear all the variables required for creating a new task.
+     * this is done when the bottom sheet is dismissed.
+     */
     fun clearNewTask() {
         newTaskTitle = null
         newTaskDescription = null
         newTaskDate = null
     }
 
+    /**
+     * Function to create a new task.
+     */
     fun createNewTask() {
         _showDataLoader.value = true
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,6 +74,10 @@ class CalendarViewModel @Inject constructor(private val calendarUseCases: Calend
         }
     }
 
+    /**
+     * Function to delete an existing task.
+     * @param id -> the task id to be deleted.
+     */
     fun deleteTask(id: Int) {
         _showDataLoader.value = true
         viewModelScope.launch {

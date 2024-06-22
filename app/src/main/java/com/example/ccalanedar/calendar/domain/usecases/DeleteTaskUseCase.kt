@@ -7,8 +7,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Created by Mandeep Singh on 21 June 2024
+ * @param calendarRepository to delete the task from server,
+ * and on success delete it from room db.
+ */
 class DeleteTaskUseCase @Inject constructor(private val calendarRepository: CalendarRepository) {
 
+    /**
+     * @param taskId -> the task to be deleted. It first deletes from
+     * server, and on it success clear it from room db.
+     */
     suspend operator fun invoke(taskId: Int?) {
         withContext(Dispatchers.IO) {
             if (Utility.isValidTaskId(taskId).not()) {

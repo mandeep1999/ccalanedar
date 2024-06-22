@@ -9,6 +9,11 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 
+
+/**
+ * Created by Mandeep Singh on 21 June 2024.
+ * It is used to properly manage the states of custom views
+ */
 open class BaseConstraintLayout : ConstraintLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(

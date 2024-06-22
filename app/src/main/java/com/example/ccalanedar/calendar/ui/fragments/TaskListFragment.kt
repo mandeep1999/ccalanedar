@@ -15,6 +15,9 @@ import com.example.ccalanedar.calendar.ui.viewmodels.CalendarViewModel
 import com.example.ccalanedar.databinding.FragmentTaskListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Created by Mandeep Singh on 21 June 2024
+ */
 @AndroidEntryPoint
 class TaskListFragment : Fragment() {
 
@@ -47,13 +50,16 @@ class TaskListFragment : Fragment() {
     }
 
     private fun init() {
+        setRecyclerView()
         setObservers()
     }
 
-
-    private fun setObservers() {
+    private fun setRecyclerView() {
         listAdapter = TaskListAdapter(::onDelete)
         binding.listRecyclerView.adapter = listAdapter
+    }
+
+    private fun setObservers() {
         viewModel.getAllTasks().observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty()) {
                 showEmptyScreen()
@@ -74,6 +80,11 @@ class TaskListFragment : Fragment() {
         listAdapter?.setItems(taskModelDTOS)
     }
 
+    /**
+     * Callback to be called, when delete is clicked on an item.
+     * It creates an alert dialog, and it takes
+     * @param id -> the task id of the task to be deleted.
+     */
     private fun onDelete(id: Int) {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.are_you_sure_you_want_to_delete_this))
@@ -82,6 +93,16 @@ class TaskListFragment : Fragment() {
             ) { _, _ -> viewModel.deleteTask(id) }.setNegativeButton(R.string.no) { _, _ ->
 
             }.create().show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _viewModel = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

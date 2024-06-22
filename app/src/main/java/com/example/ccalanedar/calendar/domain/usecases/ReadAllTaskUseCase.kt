@@ -8,6 +8,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Created by Mandeep Singh on 21 June 2024
+ * @param calendarRepository to fetch all the tasks from the room db.
+ */
 class ReadAllTaskUseCase @Inject constructor(private val calendarRepository: CalendarRepository) {
 
     operator fun invoke(): LiveData<List<TaskModelDTO>> {

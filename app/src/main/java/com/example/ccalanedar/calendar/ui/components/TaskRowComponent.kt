@@ -11,6 +11,10 @@ import com.example.ccalanedar.calendar.core.utils.Utility
 import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.databinding.TaskRowItemBinding
 
+
+/**
+ * Created by Mandeep Singh on 21 June 2024
+ */
 class TaskRowComponent : BaseConstraintLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(

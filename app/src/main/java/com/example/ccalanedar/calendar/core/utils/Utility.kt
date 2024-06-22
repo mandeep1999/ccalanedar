@@ -11,10 +11,18 @@ import java.util.Locale
 
 object Utility {
 
+    /**
+     * @param text -> if text is non-null and contain non white spaces then @return true
+     * otherwise @return false
+     */
     fun isValidString(text: String?): Boolean {
         return text.isNullOrBlank().not()
     }
 
+    /**
+     * @param timestamp -> epoch time stamp
+     * @return the readable string for the date from time stamp
+     */
     fun convertTimestampToReadableDate(timestamp: Long): String {
         val date: Date = Date(timestamp)
         val dateFormat: SimpleDateFormat =
@@ -22,6 +30,11 @@ object Utility {
         return dateFormat.format(date)
     }
 
+    /**
+     * @param timestamp1 -> first timestamp
+     * @param timestamp2 -> second timestamp
+     * if both the timestamps are falling in the same day, @return true otherwise @return false
+     */
     fun checkSameDay(timestamp1: Long, timestamp2: Long): Boolean {
         // Convert long timestamps to LocalDateTime
         val dateTime1 = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp1), ZoneId.systemDefault())

@@ -1,7 +1,6 @@
 package com.example.ccalanedar.calendar.ui.components
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.GridLayout
@@ -15,6 +14,10 @@ import com.example.ccalanedar.calendar.data.db.tables.TaskModelDTO
 import com.example.ccalanedar.databinding.CalendarLayoutBinding
 import java.util.Calendar
 
+/**
+ * Created by Mandeep Singh on 21 June 2024, it extends the BaseConstraintLayout
+ * to manage the state of the custom view.
+ */
 class CalendarComponent : BaseConstraintLayout {
 
 
@@ -51,6 +54,12 @@ class CalendarComponent : BaseConstraintLayout {
         updateCalendar()
     }
 
+    /**
+     * The only function to be called from outside.
+     * @param calendar -> instance of calendar, it already has details for the selected month.
+     * @param tasks -> list of all the tasks created already
+     * @param dateSelectionListener -> callback to be invoked when a date is clicked.
+     */
     fun setCalendar(
         calendar: Calendar,
         tasks: List<TaskModelDTO>?,
@@ -62,6 +71,9 @@ class CalendarComponent : BaseConstraintLayout {
         updateCalendar()
     }
 
+    /**
+     * Function to update the calendar. It adds dates in the grid.
+     */
     private fun updateCalendar() {
         binding.monthYearText.text =
             android.text.format.DateFormat.format("MMMM yyyy", currentCalendar)
@@ -119,6 +131,9 @@ class CalendarComponent : BaseConstraintLayout {
         binding.calendarGrid.addView(dayView)
     }
 
+    /**
+     * Function to highlight the number of tasks on a given day.
+     */
     private fun highLightTask(textView: TextView, calendar: Calendar) {
         var numberOfTasks = 0
         tasks?.map {
@@ -136,6 +151,11 @@ class CalendarComponent : BaseConstraintLayout {
         }
     }
 
+    /**
+     * Function to highlight the current day. it takes the
+     * @param textView - the text view to highlight.
+     * It checks whether the day is the current day, and if yes it highlights it.
+     */
     private fun highLightToday(textView: TextView, day: Int) {
         val todayCalendar = Calendar.getInstance()
         if (currentCalendar.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR) &&

@@ -8,6 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Created by Mandeep Singh on 21 June 2024
+ * @param calendarRepository to insert the new task into the server, and
+ * then on success, get all tasks back from server and reinsert them into the room.
+ */
 class InsertNewTaskUseCase @Inject constructor(private val calendarRepository: CalendarRepository) {
 
     suspend operator fun invoke(date: Long?, title: String?, description: String?) {
